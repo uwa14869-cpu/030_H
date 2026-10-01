@@ -190,21 +190,21 @@ APPS = [
         "🩴",
         "โครงสร้างข้อมูล User & Sandal",
         "จัดการข้อมูลผู้ใช้และรองเท้าแตะ 10 ยี่ห้อ ด้วยฐานข้อมูลกราฟ Neo4j",
-        "https://colab.research.google.com/",  # TODO: ลิงก์ Colab ส่วนโครงสร้างข้อมูล
+        "https://colab.research.google.com/drive/1NRomg7CdW6GqtK2tJBSN-AJcFJlRWYEk?usp=sharing",  # TODO: ลิงก์ Colab ส่วนโครงสร้างข้อมูล
         "เปิดระบบ →",
     ),
     (
         "👥",
         "วิเคราะห์ความสัมพันธ์ User",
         "วิเคราะห์ความสัมพันธ์ FRIEND_OF และประวัติการดูรองเท้าแตะ (WATCHED)",
-        "https://colab.research.google.com/",  # TODO: ลิงก์ Colab ส่วนวิเคราะห์ความสัมพันธ์
+        "https://colab.research.google.com/drive/18WJNzWq3B92QkilPjRKDrhpUji8O31SP?usp=sharing",  # TODO: ลิงก์ Colab ส่วนวิเคราะห์ความสัมพันธ์
         "เปิดระบบ →",
     ),
     (
         "🎯",
         "ระบบแนะนำรองเท้าแตะ",
         "แนะนำรองเท้าแตะจากยี่ห้อที่เพื่อนเคยดู โดยคิดคะแนนจากจำนวนเพื่อน",
-        "https://your-app.streamlit.app/",  # TODO: ลิงก์แอป Streamlit (app.py)
+        "https://efkaprnnlkboqb3yt5abqw.streamlit.app/",  # TODO: ลิงก์แอป Streamlit (app.py)
         "เปิดเว็บไซต์ →",
     ),
 ]
