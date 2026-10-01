@@ -1,142 +1,179 @@
 import base64
 from pathlib import Path
-
+ 
 import streamlit as st
-
+ 
 st.set_page_config(
-    page_title="ผู้พัฒนา | Anime Recommendation",
+    page_title="ผู้พัฒนา | Sandal Recommendation",
     page_icon="🧑‍💻",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
-
+ 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;600;800&display=swap');
-
-/* Main App Layout - Modern Dark Theme */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Prompt:wght@300;400;500;600&display=swap');
+ 
+:root {
+    --burgundy-dark: #4A0E0E;
+    --burgundy: #7A1616;
+    --red: #A4161A;
+    --cream: #FBF4E4;
+    --cream-dark: #F0E3C4;
+    --gold: #C9A227;
+    --gold-light: #E6C766;
+    --ink: #3B1F1F;
+}
+ 
 .stApp {
-    background-color: #0B0F19;
-    background-image: 
-        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 30%);
+    background-color: var(--burgundy-dark);
+    background-image:
+        radial-gradient(circle at 20% 10%, rgba(201, 162, 39, 0.10) 0%, transparent 30%),
+        radial-gradient(circle at 80% 90%, rgba(164, 22, 26, 0.45) 0%, transparent 40%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 12px);
     background-attachment: fixed;
 }
-
-html, body, [class*="css"] { 
-    font-family: 'Prompt', 'Inter', sans-serif; 
-    color: #E2E8F0;
+ 
+html, body, [class*="css"] {
+    font-family: 'Prompt', 'Playfair Display', serif;
+    color: var(--cream);
 }
-
-/* Hero Section */
-.hero { 
-    text-align: center; 
-    padding: 50px 20px 20px 20px; 
-}
+ 
+/* ---------- Hero ---------- */
+.hero { text-align: center; padding: 46px 20px 20px 20px; }
+.hero .ornament { color: var(--gold); letter-spacing: 12px; font-size: 0.95rem; margin-bottom: 10px; }
 .hero h1 {
-    font-family: 'Inter', 'Prompt', sans-serif;
+    font-family: 'Playfair Display', 'Prompt', serif;
     font-size: 3rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #818CF8 0%, #A78BFA 50%, #22D3EE 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
+    color: var(--cream);
+    margin: 0 0 12px 0;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
 }
-.hero p { 
-    color: #94A3B8; 
-    font-size: 1.1rem; 
-    letter-spacing: 0.5px; 
-    margin-top: 0; 
-    font-weight: 300;
+.hero .rule {
+    width: 160px; height: 3px; margin: 0 auto 16px auto;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
-
-/* Profile Photo Wrapper */
-.profile-photo-wrap {
+.hero p { color: var(--cream-dark); font-size: 1.05rem; margin: 0; font-weight: 300; letter-spacing: 0.5px; }
+ 
+/* ---------- Two-column layout: photo left, card right ---------- */
+.profile-layout {
+    max-width: 920px;
+    margin: 36px auto 0 auto;
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    gap: 40px;
 }
-.profile-photo-wrap img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    background:
-        linear-gradient(#1E293B, #1E293B) padding-box,
-        linear-gradient(135deg, #818CF8, #A78BFA, #22D3EE) border-box;
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+ 
+/* Framed portrait */
+.photo-frame {
+    flex: 0 0 auto;
+    padding: 12px;
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    border-radius: 6px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+.photo-frame::after {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(201, 162, 39, 0.6);
+    pointer-events: none;
+}
+.photo-frame:hover { transform: translateY(-4px); }
+.photo-frame img,
+.photo-frame .placeholder {
+    display: block;
+    width: 260px;
+    height: 330px;
     object-fit: cover;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 2px;
 }
-.profile-photo-wrap img:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 50px rgba(139, 92, 246, 0.5);
+.photo-frame .placeholder {
+    background: var(--cream-dark);
+    color: var(--burgundy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.5rem;
 }
-
-/* Profile Card */
+ 
+/* Profile card */
 .profile-card {
-    max-width: 450px;
-    margin: 30px auto 0 auto;
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(148, 163, 184, 0.1);
-    border-radius: 20px;
-    padding: 32px 36px;
-    text-align: center;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+    flex: 1 1 340px;
+    max-width: 460px;
+    background: var(--cream);
+    color: var(--ink);
+    border: 2px solid var(--gold);
+    outline: 1px solid rgba(201, 162, 39, 0.45);
+    outline-offset: -8px;
+    border-radius: 6px;
+    padding: 36px 36px 28px 36px;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+}
+.profile-card .tag {
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 .profile-card h2 {
-    color: #F1F5F9;
-    font-family: 'Inter', 'Prompt', sans-serif;
-    font-size: 1.5rem;
+    font-family: 'Playfair Display', 'Prompt', serif;
+    color: var(--burgundy);
+    font-size: 1.6rem;
     font-weight: 700;
-    margin: 0 0 20px 0;
+    margin: 0 0 14px 0;
+    line-height: 1.35;
+}
+.profile-card .divider {
+    height: 2px; width: 70px; margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--gold), transparent);
 }
 .info-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 14px 4px;
-    border-top: 1px solid rgba(148, 163, 184, 0.15);
-    color: #E2E8F0;
+    border-top: 1px dashed rgba(122, 22, 22, 0.25);
     font-size: 1rem;
 }
 .info-row:first-of-type { border-top: none; }
-.info-row span.label { color: #94A3B8; font-weight: 400; }
-.info-row span.value { font-weight: 600; color: #A5B4FC; letter-spacing: 0.5px; }
-
-/* Hide default Streamlit elements */
+.info-row span.label { color: #7C5C5C; font-weight: 400; }
+.info-row span.value { font-weight: 600; color: var(--red); letter-spacing: 0.5px; }
+ 
+/* ---------- Streamlit chrome ---------- */
 footer, #MainMenu { visibility: hidden; }
 [data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"] { visibility: visible !important; }
-
-/* Sidebar Styling */
+ 
 [data-testid="stSidebar"] {
-    background: #0F1525 !important;
-    border-right: 1px solid rgba(148, 163, 184, 0.1) !important;
+    background: var(--burgundy-dark) !important;
+    border-right: 1px solid rgba(201, 162, 39, 0.35) !important;
 }
-[data-testid="stSidebarNav"] {
-    padding-top: 20px;
-}
+[data-testid="stSidebarNav"] { padding-top: 20px; }
 [data-testid="stSidebarNav"]::before {
-    content: "ML HUB NAVIGATION";
+    content: "SANDAL RECOMMENDATION";
     display: block;
     margin: 0 20px 20px 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-    font-family: 'Inter', sans-serif;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.35);
+    font-family: 'Playfair Display', serif;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 2px;
-    color: #64748B;
+    color: var(--gold-light);
 }
 [data-testid="stSidebarNav"] a {
     margin: 4px 12px !important;
     padding: 12px 16px !important;
-    border-radius: 10px;
-    color: #94A3B8 !important;
+    border-radius: 4px;
+    color: var(--cream-dark) !important;
     font-family: 'Prompt', sans-serif;
     font-weight: 500;
     font-size: 0.95rem;
@@ -144,71 +181,75 @@ footer, #MainMenu { visibility: hidden; }
     background: transparent !important;
 }
 [data-testid="stSidebarNav"] a:hover {
-    background: rgba(99, 102, 241, 0.1) !important;
-    color: #C7D2FE !important;
+    background: rgba(201, 162, 39, 0.15) !important;
+    color: #FFFFFF !important;
 }
 [data-testid="stSidebarNav"] a[aria-current="page"] {
-    background: linear-gradient(90deg, rgba(99, 102, 241, 0.2) 0%, transparent 100%) !important;
-    color: #A5B4FC !important;
-    border-left: 3px solid #818CF8;
+    background: linear-gradient(90deg, rgba(164, 22, 26, 0.7) 0%, transparent 100%) !important;
+    color: var(--gold-light) !important;
+    border-left: 3px solid var(--gold);
     font-weight: 600;
 }
-
+ 
 /* เปลี่ยนข้อความเมนู: app -> หน้าหลัก, about -> ผู้พัฒนา */
 [data-testid="stSidebarNav"] li:nth-child(1) a * { font-size: 0 !important; }
 [data-testid="stSidebarNav"] li:nth-child(1) a::after { content: "🏠 หน้าหลัก"; font-size: 0.95rem !important; }
 [data-testid="stSidebarNav"] li:nth-child(2) a * { font-size: 0 !important; }
 [data-testid="stSidebarNav"] li:nth-child(2) a::after { content: "🧑‍💻 ผู้พัฒนา"; font-size: 0.95rem !important; }
-
-/* Footer */
+ 
+/* ---------- Footer ---------- */
 .custom-footer {
     text-align: center;
-    color: #64748B;
+    color: var(--gold-light);
     margin-top: 50px;
-    padding: 30px 20px;
+    padding: 28px 20px;
     font-size: 0.85rem;
-    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(201, 162, 39, 0.35);
 }
 </style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
+ 
 <div class="hero">
+    <div class="ornament">✦ ✦ ✦</div>
     <h1>ผู้พัฒนา</h1>
-    <p>ข้อมูลผู้จัดทำโปรเจค Anime Recommendation</p>
+    <div class="rule"></div>
+    <p>ข้อมูลผู้จัดทำโปรเจค Sandal Recommendation</p>
 </div>
 """, unsafe_allow_html=True)
-
+ 
 # โหลดรูปภาพ (ตรวจสอบให้แน่ใจว่าไฟล์ assets/1.jpg มีอยู่จริง)
 photo_path = Path(__file__).resolve().parent.parent / "assets" / "1.jpg"
 try:
     photo_b64 = base64.b64encode(photo_path.read_bytes()).decode()
-    st.markdown(
-        f'<div class="profile-photo-wrap"><img src="data:image/jpeg;base64,{photo_b64}" alt="Profile Photo"></div>',
-        unsafe_allow_html=True,
-    )
+    photo_html = f'<img src="data:image/jpeg;base64,{photo_b64}" alt="Profile Photo">'
 except FileNotFoundError:
-    st.markdown(
-        '<div class="profile-photo-wrap"><div style="width:200px;height:200px;border-radius:50%;background:#1E293B;border:3px solid #818CF8;display:flex;align-items:center;justify-content:center;font-size:4rem;">🧑‍💻</div></div>',
-        unsafe_allow_html=True,
-    )
-
-st.markdown("""
-<div class="profile-card">
-    <h2>ภาณุพงศ์ ภุ่มพันธ์วงค์</h2>
-    <div class="info-row">
-        <span class="label">รหัสนักศึกษา</span>
-        <span class="value">664245030</span>
-    </div>
-    <div class="info-row">
-        <span class="label">หมู่เรียน</span>
-        <span class="value">Sec. 66/43</span>
+    photo_html = '<div class="placeholder">🧑‍💻</div>'
+ 
+st.markdown(
+    f"""
+<div class="profile-layout">
+    <div class="photo-frame">{photo_html}</div>
+    <div class="profile-card">
+        <div class="tag">DEVELOPER</div>
+        <h2>ภาณุพงศ์ ภุ่มพันธ์วงค์</h2>
+        <div class="divider"></div>
+        <div class="info-row">
+            <span class="label">รหัสนักศึกษา</span>
+            <span class="value">664245030</span>
+        </div>
+        <div class="info-row">
+            <span class="label">หมู่เรียน</span>
+            <span class="value">Sec. 66/43</span>
+        </div>
     </div>
 </div>
-""", unsafe_allow_html=True)
-
+""",
+    unsafe_allow_html=True,
+)
+ 
 st.markdown("""
 <div class="custom-footer">
-    Anime Recommendation Projects 2026
+    ✦ Sandal Recommendation Projects 2026 ✦
 </div>
 """, unsafe_allow_html=True)
+ 
