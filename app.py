@@ -1,219 +1,235 @@
 import streamlit as st
-
+ 
 st.set_page_config(
-    page_title="Anime Recommendation ",
-    page_icon="🎌",
+    page_title="Sandal Recommendation",
+    page_icon="🩴",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
-
+ 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;600;800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Prompt:wght@300;400;500;600&display=swap');
+ 
+:root {
+    --burgundy-dark: #4A0E0E;
+    --burgundy: #7A1616;
+    --red: #A4161A;
+    --cream: #FBF4E4;
+    --cream-dark: #F0E3C4;
+    --gold: #C9A227;
+    --gold-light: #E6C766;
+    --ink: #3B1F1F;
+}
+ 
 .stApp {
-    background-color: #0B0F19;
+    background-color: var(--burgundy-dark);
     background-image:
-        radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 25%),
-        radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.10) 0%, transparent 30%);
+        radial-gradient(circle at 20% 10%, rgba(201, 162, 39, 0.10) 0%, transparent 30%),
+        radial-gradient(circle at 80% 90%, rgba(164, 22, 26, 0.45) 0%, transparent 40%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 12px);
     background-attachment: fixed;
 }
-
+ 
 html, body, [class*="css"] {
-    font-family: 'Prompt', 'Inter', sans-serif;
-    color: #E2E8F0;
+    font-family: 'Prompt', 'Playfair Display', serif;
+    color: var(--cream);
 }
-
+ 
+/* ---------- Hero ---------- */
 .hero {
     text-align: center;
-    padding: 50px 20px 30px 20px;
+    padding: 46px 20px 24px 20px;
 }
-
+ 
+.hero .ornament {
+    color: var(--gold);
+    letter-spacing: 12px;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+ 
 .hero h1 {
-    font-family: 'Inter', 'Prompt', sans-serif;
-    font-size: 3.3rem;
+    font-family: 'Playfair Display', 'Prompt', serif;
+    font-size: 3.4rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #818CF8 0%, #A78BFA 50%, #22D3EE 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 12px;
-    letter-spacing: -1px;
+    color: var(--cream);
+    margin: 0 0 12px 0;
+    letter-spacing: 3px;
     line-height: 1.2;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
 }
-
+ 
+.hero .rule {
+    width: 160px;
+    height: 3px;
+    margin: 0 auto 16px auto;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+ 
 .hero p {
-    color: #94A3B8;
-    font-size: 1.15rem;
-    letter-spacing: 0.5px;
-    margin-top: 0;
+    color: var(--cream-dark);
+    font-size: 1.1rem;
+    margin: 0;
     font-weight: 300;
+    letter-spacing: 0.5px;
 }
-
+ 
+.section-title {
+    text-align: center;
+    color: var(--gold-light);
+    font-size: 1.15rem;
+    margin: 14px 0 28px 0;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+ 
+/* ---------- Cards ---------- */
 .card {
-    background: rgba(30, 41, 59, 0.60);
-    border: 1px solid rgba(148, 163, 184, 0.10);
-    border-radius: 20px;
-    padding: 28px;
-    height: 260px;
+    background: var(--cream);
+    color: var(--ink);
+    border: 2px solid var(--gold);
+    outline: 1px solid rgba(201, 162, 39, 0.45);
+    outline-offset: -8px;
+    border-radius: 6px;
+    padding: 32px 28px 26px 28px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     margin-bottom: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.10), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
-
+ 
 .card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(167, 139, 250, 0.40);
-    box-shadow: 0 20px 40px -5px rgba(99, 102, 241, 0.25), 0 10px 20px -5px rgba(0, 0, 0, 0.30);
-    background: rgba(30, 41, 59, 0.80);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 32px rgba(0, 0, 0, 0.5);
+    border-color: var(--gold-light);
 }
-
+ 
 .card .icon {
-    font-size: 2.5rem;
-    margin-bottom: 12px;
+    font-size: 2.3rem;
+    margin-bottom: 10px;
     display: inline-block;
-    filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.40));
 }
-
+ 
 .card h3 {
-    color: #F1F5F9;
+    font-family: 'Playfair Display', 'Prompt', serif;
+    color: var(--burgundy);
     margin: 0 0 8px 0;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: 700;
 }
-
+ 
 .card p {
-    color: #94A3B8;
-    font-size: 0.90rem;
+    color: #6B4A4A;
+    font-size: 0.92rem;
     line-height: 1.6;
     margin: 0;
 }
-
+ 
 .btn {
     display: block;
     text-align: center;
     text-decoration: none !important;
-    padding: 12px 20px;
-    border-radius: 12px;
+    padding: 11px 20px;
+    border-radius: 4px;
     font-weight: 600;
     font-size: 0.95rem;
-    color: #FFFFFF !important;
-    background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.30);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    letter-spacing: 0.5px;
+    color: var(--cream) !important;
+    background: linear-gradient(180deg, var(--red) 0%, var(--burgundy) 100%);
+    border: 1px solid var(--gold);
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 8px rgba(122, 22, 22, 0.35);
 }
-
+ 
 .btn:hover {
-    background: linear-gradient(135deg, #818CF8 0%, #A78BFA 100%);
-    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.45);
+    background: linear-gradient(180deg, #C1272D 0%, var(--red) 100%);
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 14px rgba(164, 22, 26, 0.5);
     transform: translateY(-2px);
 }
-
-.section-title {
-    text-align: center;
-    color: #CBD5E1;
-    font-size: 1.15rem;
-    margin: 10px 0 28px 0;
-    font-weight: 400;
-}
-
+ 
+/* ---------- Footer ---------- */
 .custom-footer {
     text-align: center;
-    color: #64748B;
-    margin-top: 40px;
-    padding: 30px 20px;
+    color: var(--gold-light);
+    margin-top: 36px;
+    padding: 28px 20px;
     font-size: 0.85rem;
-    border-top: 1px solid rgba(148, 163, 184, 0.10);
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(201, 162, 39, 0.35);
 }
-
+ 
 footer, #MainMenu { visibility: hidden; }
-
+ 
 [data-testid="stSidebar"] {
-    background: #0F1525 !important;
-    border-right: 1px solid rgba(148, 163, 184, 0.10) !important;
+    background: var(--burgundy-dark) !important;
+    border-right: 1px solid rgba(201, 162, 39, 0.35) !important;
 }
 </style>
-
+ 
 <div class="hero">
-    <h1>ANIME RECOMMENDATION</h1>
-    <p>ระบบแนะนำอนิเมะด้วยกราฟความสัมพันธ์ระหว่าง User และ Anime</p>
+    <div class="ornament">✦ ✦ ✦</div>
+    <h1>SANDAL RECOMMENDATION</h1>
+    <div class="rule"></div>
+    <p>ระบบแนะนำรองเท้าแตะด้วยกราฟความสัมพันธ์ระหว่าง User และ Sandal</p>
 </div>
 """, unsafe_allow_html=True)
-
+ 
 st.markdown(
-    '<div class="section-title">🎌 รวมโปรเจกต์ระบบ Anime Recommendation ของเรา</div>',
+    '<div class="section-title">🩴 รวมโปรเจกต์ระบบ Sandal Recommendation ของเรา</div>',
     unsafe_allow_html=True,
 )
-
+ 
+# TODO: ใส่ลิงก์จริงของ Colab / Streamlit ของโปรเจกต์รองเท้าแตะ
 APPS = [
     (
-        "🎌",
-        "โครงสร้างข้อมูล Anime & User",
-        "จัดการข้อมูล User และ Anime ด้วยฐานข้อมูลกราฟ Neo4j",
-        "https://colab.research.google.com/drive/1NRomg7CdW6GqtK2tJBSN-AJcFJlRWYEk?usp=sharing",
+        "🩴",
+        "โครงสร้างข้อมูล User & Sandal",
+        "จัดการข้อมูลผู้ใช้และรองเท้าแตะ 10 ยี่ห้อ ด้วยฐานข้อมูลกราฟ Neo4j",
+        "https://colab.research.google.com/",  # TODO: ลิงก์ Colab ส่วนโครงสร้างข้อมูล
+        "เปิดระบบ →",
     ),
     (
         "👥",
         "วิเคราะห์ความสัมพันธ์ User",
-        "วิเคราะห์ความสัมพันธ์ FRIEND_OF และประวัติการดู Anime",
-        "https://colab.research.google.com/drive/18WJNzWq3B92QkilPjRKDrhpUji8O31SP?usp=sharing",
+        "วิเคราะห์ความสัมพันธ์ FRIEND_OF และประวัติการดูรองเท้าแตะ (WATCHED)",
+        "https://colab.research.google.com/",  # TODO: ลิงก์ Colab ส่วนวิเคราะห์ความสัมพันธ์
+        "เปิดระบบ →",
     ),
     (
         "🎯",
-        "ระบบแนะนำ Anime",
-        "แนะนำ Anime จากความสัมพันธ์และ Anime ที่เพื่อนเคยดู",
-        "https://efkaprnnlkboqb3yt5abqw.streamlit.app/",
+        "ระบบแนะนำรองเท้าแตะ",
+        "แนะนำรองเท้าแตะจากยี่ห้อที่เพื่อนเคยดู โดยคิดคะแนนจากจำนวนเพื่อน",
+        "https://your-app.streamlit.app/",  # TODO: ลิงก์แอป Streamlit (app.py)
+        "เปิดเว็บไซต์ →",
     ),
-    
 ]
-
-# 4 cards: 3 cards on the first row and 1 centered on the second row.
+ 
 cols = st.columns(3)
-for i, (icon, title, desc, url) in enumerate(APPS):
-    if i < 3:
-        with cols[i]:
-            st.markdown(
-                f"""
-                <div class="card">
-                    <div>
-                        <div class="icon">{icon}</div>
-                        <h3>{title}</h3>
-                        <p>{desc}</p>
-                    </div>
-                    <a class="btn" href="{url}" target="_blank">เปิดระบบ →</a>
+for col, (icon, title, desc, url, label) in zip(cols, APPS):
+    with col:
+        st.markdown(
+            f"""
+            <div class="card">
+                <div>
+                    <div class="icon">{icon}</div>
+                    <h3>{title}</h3>
+                    <p>{desc}</p>
                 </div>
-                """,
-                unsafe_allow_html=True,
-            )
-    else:
-        left, center, right = st.columns([1, 1.0, 1])
-        with center:
-            st.markdown(
-                f"""
-                <div class="card">
-                    <div>
-                        <div class="icon">{icon}</div>
-                        <h3>{title}</h3>
-                        <p>{desc}</p>
-                    </div>
-                    <a class="btn" href="{url}" target="_blank">เปิดเว็บไซต์ →</a>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
+                <a class="btn" href="{url}" target="_blank">{label}</a>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+ 
 st.markdown(
     """
     <div class="custom-footer">
-        Made with ❤️ using Streamlit · Anime Recommendation System 2026
+        ✦ Made with ❤️ using Streamlit · Sandal Recommendation System 2026 ✦
     </div>
     """,
     unsafe_allow_html=True,
