@@ -1,14 +1,14 @@
-```python
 import streamlit as st
 
 st.set_page_config(
-    page_title="Sandal Recommendation",
-    page_icon="🩴",
-    layout="wide",
-    initial_sidebar_state="collapsed",
+page_title="Sandal Recommendation",
+page_icon="🩴",
+layout="wide",
+initial_sidebar_state="collapsed",
 )
 
 st.markdown("""
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Prompt:wght@300;400;500;600&display=swap');
 
@@ -22,8 +22,6 @@ st.markdown("""
     --gold-light: #E6C766;
     --ink: #3B1F1F;
 }
-
-/* ---------- Main Background ---------- */
 
 .stApp {
     background-color: var(--burgundy-dark);
@@ -45,8 +43,6 @@ st.markdown("""
         );
     background-attachment: fixed;
 }
-
-/* ---------- Font ---------- */
 
 html, body, [class*="css"] {
     font-family: 'Prompt', 'Playfair Display', serif;
@@ -97,8 +93,6 @@ html, body, [class*="css"] {
     font-weight: 300;
     letter-spacing: 0.5px;
 }
-
-/* ---------- Section Title ---------- */
 
 .section-title {
     text-align: center;
@@ -200,14 +194,10 @@ html, body, [class*="css"] {
     border-top: 1px solid rgba(201, 162, 39, 0.35);
 }
 
-/* ---------- Hide Streamlit Default UI ---------- */
-
 footer,
 #MainMenu {
     visibility: hidden;
 }
-
-/* ---------- Sidebar ---------- */
 
 [data-testid="stSidebar"] {
     background: var(--burgundy-dark) !important;
@@ -240,100 +230,100 @@ footer,
 
 <div class="hero">
     <div class="ornament">✦ ✦ ✦</div>
-
     <h1>SANDAL RECOMMENDATION</h1>
-
     <div class="rule"></div>
-
     <p>
         ระบบแนะนำรองเท้าแตะด้วยกราฟความสัมพันธ์ระหว่าง User และ Sandal
     </p>
 </div>
 """, unsafe_allow_html=True)
 
-
 # ============================================================
+
 # SECTION TITLE
+
 # ============================================================
 
 st.markdown(
-    """
-    <div class="section-title">
-        🩴 รวมโปรเจกต์ระบบ Sandal Recommendation ของเรา
-    </div>
-    """,
-    unsafe_allow_html=True,
+""" <div class="section-title">
+🩴 รวมโปรเจกต์ระบบ Sandal Recommendation ของเรา </div>
+""",
+unsafe_allow_html=True,
 )
 
-
 # ============================================================
+
 # PROJECT LINKS
+
 # ============================================================
 
 APPS = [
+(
+"🩴",
+"โครงสร้างข้อมูล User & Sandal",
+"จัดการข้อมูลผู้ใช้และรองเท้าแตะ 10 ยี่ห้อ "
+"ด้วยฐานข้อมูลกราฟ Neo4j",
+"https://colab.research.google.com/drive/"
+"1NRomg7CdW6GqtK2tJBSN-AJcFJlRWYEk?usp=sharing",
+"เปิดระบบ →",
+),
 
-    # 1. Data Structure
-    (
-        "🩴",
-        "โครงสร้างข้อมูล User & Sandal",
-        "จัดการข้อมูลผู้ใช้และรองเท้าแตะ 10 ยี่ห้อ "
-        "ด้วยฐานข้อมูลกราฟ Neo4j",
-        "https://colab.research.google.com/drive/"
-        "1NRomg7CdW6GqtK2tJBSN-AJcFJlRWYEk?usp=sharing",
-        "เปิดระบบ →",
-    ),
+```
+(
+    "👥",
+    "วิเคราะห์ความสัมพันธ์ User",
+    "วิเคราะห์ความสัมพันธ์ FRIEND_OF และประวัติการดู "
+    "รองเท้าแตะ (WATCHED)",
+    "https://colab.research.google.com/drive/"
+    "18WJNzWq3B92QkilPjRKDrhpUji8O31SP?usp=sharing",
+    "เปิดระบบ →",
+),
 
-    # 2. User Relationship
-    (
-        "👥",
-        "วิเคราะห์ความสัมพันธ์ User",
-        "วิเคราะห์ความสัมพันธ์ FRIEND_OF และประวัติการดู"
-        "รองเท้าแตะ (WATCHED)",
-        "https://colab.research.google.com/drive/"
-        "18WJNzWq3B92QkilPjRKDrhpUji8O31SP?usp=sharing",
-        "เปิดระบบ →",
-    ),
+(
+    "🎯",
+    "ระบบแนะนำรองเท้าแตะ",
+    "แนะนำรองเท้าแตะจากยี่ห้อที่เพื่อนเคยดู "
+    "โดยคิดคะแนนจากจำนวนเพื่อน",
+    "https://efkaprnnlkboqb3yt5abqw.streamlit.app/",
+    "เปิดเว็บไซต์ →",
+),
 
-    # 3. Recommendation System
-    (
-        "🎯",
-        "ระบบแนะนำรองเท้าแตะ",
-        "แนะนำรองเท้าแตะจากยี่ห้อที่เพื่อนเคยดู "
-        "โดยคิดคะแนนจากจำนวนเพื่อน",
-        "https://efkaprnnlkboqb3yt5abqw.streamlit.app/",
-        "เปิดเว็บไซต์ →",
-    ),
+(
+    "🎨",
+    "Presentation Canva",
+    "นำเสนอโปรเจกต์ Sandal Recommendation System",
+    "https://canva.link/xylbgc73dbebx00",
+    "เปิด Canva →",
+),
 
-    # 4. Canva Presentation 1
-    (
-        "🎨",
-        "Presentation Canva",
-        "นำเสนอโปรเจกต์ Sandal Recommendation System",
-        "https://canva.link/xylbgc73dbebx00",
-        "เปิด Canva →",
-    ),
+(
+    "📊",
+    "Project Canva",
+    "เอกสารและรายละเอียดเพิ่มเติมของโปรเจกต์",
+    "https://canva.link/xylwnnpwgpwq9hf",
+    "เปิด Canva →",
+),
+```
 
-    # 5. Canva Presentation 2
-    (
-        "📊",
-        "Project Canva",
-        "เอกสารและรายละเอียดเพิ่มเติมของโปรเจกต์",
-        "https://canva.link/xylwnnpwgpwq9hf",
-        "เปิด Canva →",
-    ),
 ]
 
+# ============================================================
+
+# DISPLAY CARDS
 
 # ============================================================
-# DISPLAY CARDS
-# ============================================================
+
+for row_start in range(0, len(APPS), 3):
+
+```
+row_apps = APPS[row_start:row_start + 3]
 
 cols = st.columns(3)
 
-for col, (icon, title, desc, url, label) in zip(
-    cols * ((len(APPS) + 2) // 3),
-    APPS
-):
+for col, app in zip(cols, row_apps):
+
+    icon, title, desc, url, label = app
+
     with col:
         st.markdown(
             f"""
@@ -360,19 +350,18 @@ for col, (icon, title, desc, url, label) in zip(
             """,
             unsafe_allow_html=True,
         )
-
+```
 
 # ============================================================
+
 # FOOTER
+
 # ============================================================
 
 st.markdown(
-    """
-    <div class="custom-footer">
-        ✦ Made with ❤️ using Streamlit ·
-        Sandal Recommendation System 2026 ✦
-    </div>
-    """,
-    unsafe_allow_html=True,
+""" <div class="custom-footer">
+✦ Made with ❤️ using Streamlit ·
+Sandal Recommendation System 2026 ✦ </div>
+""",
+unsafe_allow_html=True,
 )
-```
