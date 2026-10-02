@@ -1,14 +1,13 @@
 import streamlit as st
 
 st.set_page_config(
-page_title="Sandal Recommendation",
-page_icon="🩴",
-layout="wide",
-initial_sidebar_state="collapsed",
+    page_title="Sandal Recommendation",
+    page_icon="🩴",
+    layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 st.markdown("""
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800&family=Prompt:wght@300;400;500;600&display=swap');
 
@@ -26,21 +25,9 @@ st.markdown("""
 .stApp {
     background-color: var(--burgundy-dark);
     background-image:
-        radial-gradient(
-            circle at 20% 10%,
-            rgba(201, 162, 39, 0.10) 0%,
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 80% 90%,
-            rgba(164, 22, 26, 0.45) 0%,
-            transparent 40%
-        ),
-        repeating-linear-gradient(
-            45deg,
-            rgba(255,255,255,0.015) 0 2px,
-            transparent 2px 12px
-        );
+        radial-gradient(circle at 20% 10%, rgba(201, 162, 39, 0.10) 0%, transparent 30%),
+        radial-gradient(circle at 80% 90%, rgba(164, 22, 26, 0.45) 0%, transparent 40%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0 2px, transparent 2px 12px);
     background-attachment: fixed;
 }
 
@@ -50,7 +37,6 @@ html, body, [class*="css"] {
 }
 
 /* ---------- Hero ---------- */
-
 .hero {
     text-align: center;
     padding: 46px 20px 24px 20px;
@@ -78,12 +64,7 @@ html, body, [class*="css"] {
     width: 160px;
     height: 3px;
     margin: 0 auto 16px auto;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        var(--gold),
-        transparent
-    );
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
 .hero p {
@@ -104,7 +85,6 @@ html, body, [class*="css"] {
 }
 
 /* ---------- Cards ---------- */
-
 .card {
     background: var(--cream);
     color: var(--ink);
@@ -113,7 +93,7 @@ html, body, [class*="css"] {
     outline-offset: -8px;
     border-radius: 6px;
     padding: 32px 28px 26px 28px;
-    min-height: 280px;
+    height: 280px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -149,8 +129,6 @@ html, body, [class*="css"] {
     margin: 0;
 }
 
-/* ---------- Button ---------- */
-
 .btn {
     display: block;
     text-align: center;
@@ -161,29 +139,20 @@ html, body, [class*="css"] {
     font-size: 0.95rem;
     letter-spacing: 0.5px;
     color: var(--cream) !important;
-    background: linear-gradient(
-        180deg,
-        var(--red) 0%,
-        var(--burgundy) 100%
-    );
+    background: linear-gradient(180deg, var(--red) 0%, var(--burgundy) 100%);
     border: 1px solid var(--gold);
     transition: all 0.25s ease;
     box-shadow: 0 3px 8px rgba(122, 22, 22, 0.35);
 }
 
 .btn:hover {
-    background: linear-gradient(
-        180deg,
-        #C1272D 0%,
-        var(--red) 100%
-    );
+    background: linear-gradient(180deg, #C1272D 0%, var(--red) 100%);
     color: #FFFFFF !important;
     box-shadow: 0 6px 14px rgba(164, 22, 26, 0.5);
     transform: translateY(-2px);
 }
 
 /* ---------- Footer ---------- */
-
 .custom-footer {
     text-align: center;
     color: var(--gold-light);
@@ -194,37 +163,11 @@ html, body, [class*="css"] {
     border-top: 1px solid rgba(201, 162, 39, 0.35);
 }
 
-footer,
-#MainMenu {
-    visibility: hidden;
-}
+footer, #MainMenu { visibility: hidden; }
 
 [data-testid="stSidebar"] {
     background: var(--burgundy-dark) !important;
     border-right: 1px solid rgba(201, 162, 39, 0.35) !important;
-}
-
-/* ---------- Responsive ---------- */
-
-@media (max-width: 768px) {
-
-    .hero {
-        padding: 30px 15px 20px 15px;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-        letter-spacing: 1px;
-    }
-
-    .hero p {
-        font-size: 0.95rem;
-    }
-
-    .card {
-        min-height: 260px;
-        padding: 28px 22px 22px 22px;
-    }
 }
 </style>
 
@@ -232,136 +175,86 @@ footer,
     <div class="ornament">✦ ✦ ✦</div>
     <h1>SANDAL RECOMMENDATION</h1>
     <div class="rule"></div>
-    <p>
-        ระบบแนะนำรองเท้าแตะด้วยกราฟความสัมพันธ์ระหว่าง User และ Sandal
-    </p>
+    <p>ระบบแนะนำรองเท้าแตะด้วยกราฟความสัมพันธ์ระหว่าง User และ Sandal</p>
 </div>
 """, unsafe_allow_html=True)
 
-# ============================================================
-
-# SECTION TITLE
-
-# ============================================================
-
 st.markdown(
-""" <div class="section-title">
-🩴 รวมโปรเจกต์ระบบ Sandal Recommendation ของเรา </div>
-""",
-unsafe_allow_html=True,
+    '<div class="section-title">🩴 รวมโปรเจกต์ระบบ Sandal Recommendation ของเรา</div>',
+    unsafe_allow_html=True,
 )
 
-# ============================================================
-
-# PROJECT LINKS
-
-# ============================================================
-
 APPS = [
-(
-"🩴",
-"โครงสร้างข้อมูล User & Sandal",
-"จัดการข้อมูลผู้ใช้และรองเท้าแตะ 10 ยี่ห้อ "
-"ด้วยฐานข้อมูลกราฟ Neo4j",
-"https://colab.research.google.com/drive/"
-"1NRomg7CdW6GqtK2tJBSN-AJcFJlRWYEk?usp=sharing",
-"เปิดระบบ →",
-),
-
-```
-(
-    "👥",
-    "วิเคราะห์ความสัมพันธ์ User",
-    "วิเคราะห์ความสัมพันธ์ FRIEND_OF และประวัติการดู "
-    "รองเท้าแตะ (WATCHED)",
-    "https://colab.research.google.com/drive/"
-    "18WJNzWq3B92QkilPjRKDrhpUji8O31SP?usp=sharing",
-    "เปิดระบบ →",
-),
-
-(
-    "🎯",
-    "ระบบแนะนำรองเท้าแตะ",
-    "แนะนำรองเท้าแตะจากยี่ห้อที่เพื่อนเคยดู "
-    "โดยคิดคะแนนจากจำนวนเพื่อน",
-    "https://efkaprnnlkboqb3yt5abqw.streamlit.app/",
-    "เปิดเว็บไซต์ →",
-),
-
-(
-    "🎨",
-    "Presentation Canva",
-    "นำเสนอโปรเจกต์ Sandal Recommendation System",
-    "https://canva.link/xylbgc73dbebx00",
-    "เปิด Canva →",
-),
-
-(
-    "📊",
-    "Project Canva",
-    "เอกสารและรายละเอียดเพิ่มเติมของโปรเจกต์",
-    "https://canva.link/xylwnnpwgpwq9hf",
-    "เปิด Canva →",
-),
-```
-
+    (
+        "🩴",
+        "โครงสร้างข้อมูล User & Sandal",
+        "จัดการข้อมูลผู้ใช้และรองเท้าแตะ 10 ยี่ห้อ ด้วยฐานข้อมูลกราฟ Neo4j",
+        "https://colab.research.google.com/drive/1NRomg7CdW6GqtK2tJBSN-AJcFJlRWYEk?usp=sharing",
+        "เปิดระบบ →",
+    ),
+    (
+        "👥",
+        "วิเคราะห์ความสัมพันธ์ User",
+        "วิเคราะห์ความสัมพันธ์ FRIEND_OF และประวัติการดูรองเท้าแตะ (WATCHED)",
+        "https://colab.research.google.com/drive/18WJNzWq3B92QkilPjRKDrhpUji8O31SP?usp=sharing",
+        "เปิดระบบ →",
+    ),
+    (
+        "🎯",
+        "ระบบแนะนำรองเท้าแตะ",
+        "แนะนำรองเท้าแตะจากยี่ห้อที่เพื่อนเคยดู โดยคิดคะแนนจากจำนวนเพื่อน",
+        "https://efkaprnnlkboqb3yt5abqw.streamlit.app/",
+        "เปิดเว็บไซต์ →",
+    ),
+    # TODO: แก้ชื่อและคำอธิบายของ 2 การ์ดนี้ให้ตรงกับเนื้อหาใน Canva
+    (
+        "📑",
+        "สไลด์นำเสนอโปรเจกต์ (1)",
+        "เอกสารนำเสนอโปรเจกต์ระบบแนะนำรองเท้าแตะ ชุดที่ 1",
+        "https://canva.link/xylbgc73dbebx00",
+        "ดูสไลด์ →",
+    ),
+    (
+        "📊",
+        "สไลด์นำเสนอโปรเจกต์ (2)",
+        "เอกสารนำเสนอโปรเจกต์ระบบแนะนำรองเท้าแตะ ชุดที่ 2",
+        "https://canva.link/xylwnnpwgpwq9hf",
+        "ดูสไลด์ →",
+    ),
 ]
 
-# ============================================================
 
-# DISPLAY CARDS
-
-# ============================================================
-
-for row_start in range(0, len(APPS), 3):
-
-```
-row_apps = APPS[row_start:row_start + 3]
-
-cols = st.columns(3)
-
-for col, app in zip(cols, row_apps):
-
-    icon, title, desc, url, label = app
-
+def render_card(col, icon, title, desc, url, label):
     with col:
         st.markdown(
             f"""
             <div class="card">
-
                 <div>
                     <div class="icon">{icon}</div>
-
                     <h3>{title}</h3>
-
                     <p>{desc}</p>
                 </div>
-
-                <a
-                    class="btn"
-                    href="{url}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {label}
-                </a>
-
+                <a class="btn" href="{url}" target="_blank">{label}</a>
             </div>
             """,
             unsafe_allow_html=True,
         )
-```
 
-# ============================================================
 
-# FOOTER
+# แถวที่ 1: 3 การ์ด
+for col, app in zip(st.columns(3), APPS[:3]):
+    render_card(col, *app)
 
-# ============================================================
+# แถวที่ 2: 2 การ์ด จัดกึ่งกลาง (ขนาดเท่าแถวบน)
+_, c1, c2, _ = st.columns([0.5, 1, 1, 0.5])
+for col, app in zip((c1, c2), APPS[3:]):
+    render_card(col, *app)
 
 st.markdown(
-""" <div class="custom-footer">
-✦ Made with ❤️ using Streamlit ·
-Sandal Recommendation System 2026 ✦ </div>
-""",
-unsafe_allow_html=True,
+    """
+    <div class="custom-footer">
+        ✦ Made with ❤️ using Streamlit · Sandal Recommendation System 2026 ✦
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
